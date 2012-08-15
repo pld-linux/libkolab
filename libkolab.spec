@@ -1,10 +1,12 @@
 Summary:	Kolab Object Handling Library
 Name:		libkolab
-Version:	0.3
+Version:	0.3.1
 Release:	0.1
+Group:		Libraries
 License:	LGPLv3+
 URL:		http://git.kolab.org/libkolab
-Source0:	http://git.kolab.org/libkolab/snapshot/%{name}-%{version}.tar.gz
+Source0:	http://mirror.kolabsys.com/pub/releases/%{name}-%{version}.tar.gz
+# Source0-md5:	99f2b2c519c3ebaa57f8f520e8880e9a
 BuildRequires:	curl-devel
 BuildRequires:	kde4-kdepimlibs-devel
 BuildRequires:	libcalendaring-devel
@@ -20,6 +22,7 @@ The libkolab library is an advanced library to handle Kolab objects.
 Summary:	Kolab library development headers
 BuildRequires:	kde4-kdepimlibs-devel >= 4.8
 BuildRequires:	libcalendaring-devel
+Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libkolabxml-devel >= 0.7
 Requires:	php-devel
