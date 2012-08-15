@@ -1,8 +1,9 @@
 # TODO
 # - pldize this package!
-#  - php deps
 #  - file attrs
-#  - macros
+#  - pld cmake macros
+#  - tests to build, not %check and add bcond
+#  - drop rhel/fedora dist macros
 Summary:	Kolab Object Handling Library
 Name:		libkolab
 Version:	0.3.1
@@ -17,9 +18,10 @@ BuildRequires:	kde4-kdepimlibs-devel >= 4.8
 BuildRequires:	libcalendaring-devel
 BuildRequires:	libcalendaring-devel
 BuildRequires:	libkolabxml-devel >= 0.7
-BuildRequires:	php-devel
+BuildRequires:	php-devel >= 4:5.0.4
 BuildRequires:	python-devel
 BuildRequires:	qt-devel
+BuildRequires:	rpmbuild(macros) >= 1.519
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -41,11 +43,10 @@ Development headers for the Kolab object libraries.
 Summary:	PHP Bindings for libkolab
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	php(api) = %{php_core_api}
-Requires:	php(zend-abi) = %{php_zend_api}
+%{?requires_php_extension}
 
 %description -n php-kolab
-PHP Bindings for libkolab
+PHP Bindings for libkolab.
 
 %package -n python-kolab
 Summary:	Python bindings for libkolab
@@ -53,7 +54,7 @@ Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description -n python-kolab
-Python bindings for libkolab
+Python bindings for libkolab.
 
 %prep
 %setup -q
@@ -69,7 +70,7 @@ cd build
 	-DUSE_LIBCALENDARING=ON \
 %endif
 	-DPHP_BINDINGS=ON \
-	-DPHP_INSTALL_DIR=%{php_extdir} \
+	-DPHP_INSTALL_DIR=%{php_extensiondir} \
 	-DPYTHON_BINDINGS=ON \
 	-DPYTHON_INSTALL_DIR=%{py_sitedir} \
 	..
@@ -80,6 +81,9 @@ cd -
 rm -rf $RPM_BUILD_ROOT
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+install -d $RPM_BUILD_ROOT%{php_data_dir}
+mv $RPM_BUILD_ROOT{%{php_extensiondir}/*.php,%{php_data_dir}}
 
 %check
 pushd build/tests
@@ -111,10 +115,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n php-kolab
 %defattr(644,root,root,755)
-%{php_extdir}/calendaring.php
-%{php_extdir}/calendaring.so
-%{php_extdir}/icalendar.php
-%{php_extdir}/icalendar.so
+%{php_data_dir}/calendaring.php
+%{php_data_dir}/icalendar.php
+%attr(755,root,root) %{php_extensiondir}/calendaring.so
+%attr(755,root,root) %{php_extensiondir}/icalendar.so
 
 %files -n python-kolab
 %defattr(644,root,root,755)
