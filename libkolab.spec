@@ -1,4 +1,7 @@
-%bcond_without	tests
+#
+# Conditional build:
+%bcond_without	tests		# build without tests
+
 Summary:	Kolab Object Handling Library
 Name:		libkolab
 Version:	0.3.1
@@ -16,7 +19,7 @@ BuildRequires:	libkolabxml-devel >= 0.8
 BuildRequires:	php-devel >= 4:5.0.4
 BuildRequires:	python-devel
 BuildRequires:	qt4-build
-BuildRequires:	rpmbuild(macros) >= 1.519
+BuildRequires:	rpmbuild(macros) >= 1.600
 BuildRequires:	swig
 BuildRequires:	swig-php
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -26,7 +29,7 @@ The libkolab library is an advanced library to handle Kolab objects.
 
 %package devel
 Summary:	Kolab library development headers
-Group:		Development/Libraries
+Group:		Development/Languages/PHP
 Requires:	%{name} = %{version}-%{release}
 Requires:	libkolabxml-devel >= 0.8
 Requires:	php-devel
@@ -85,7 +88,6 @@ cd build/tests
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
@@ -100,8 +102,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %ghost %{_libdir}/%{name}.so.0
 %attr(755,root,root) %{_libdir}/%{name}.so.*.*
+%attr(755,root,root) %ghost %{_libdir}/%{name}.so.0
 
 %files devel
 %defattr(644,root,root,755)
@@ -111,19 +113,19 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n php-kolab
 %defattr(644,root,root,755)
-%{php_data_dir}/kolabcalendaring.php
-%{php_data_dir}/kolabicalendar.php
-%{php_data_dir}/kolabshared.php
 %attr(755,root,root) %{php_extensiondir}/kolabcalendaring.so
 %attr(755,root,root) %{php_extensiondir}/kolabicalendar.so
 %attr(755,root,root) %{php_extensiondir}/kolabshared.so
+%{php_data_dir}/kolabcalendaring.php
+%{php_data_dir}/kolabicalendar.php
+%{php_data_dir}/kolabshared.php
 
 %files -n python-kolab
 %defattr(644,root,root,755)
 %dir %{py_sitedir}/kolab
 %attr(755,root,root) %{py_sitedir}/kolab/_calendaring.so
-%{py_sitedir}/kolab/calendaring.py*
+%{py_sitedir}/kolab/calendaring.py[co]
 %attr(755,root,root) %{py_sitedir}/kolab/_icalendar.so
-%{py_sitedir}/kolab/icalendar.py*
+%{py_sitedir}/kolab/icalendar.py[co]
 %attr(755,root,root) %{py_sitedir}/kolab/_shared.so
-%{py_sitedir}/kolab/shared.py*
+%{py_sitedir}/kolab/shared.py[co]
