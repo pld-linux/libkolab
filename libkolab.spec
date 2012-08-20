@@ -94,6 +94,10 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{php_data_dir}
 mv $RPM_BUILD_ROOT{%{php_extensiondir}/*.php,%{php_data_dir}}
 
+%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
+%py_comp $RPM_BUILD_ROOT%{py_sitedir}
+%py_postclean
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
