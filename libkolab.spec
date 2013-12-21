@@ -4,24 +4,24 @@
 
 Summary:	Kolab Object Handling Library
 Name:		libkolab
-Version:	0.3.1
+Version:	0.5.0
 Release:	1
 License:	LGPL v3+
 Group:		Libraries
 URL:		http://git.kolab.org/libkolab
 Source0:	http://mirror.kolabsys.com/pub/releases/%{name}-%{version}.tar.gz
-# Source0-md5:	99f2b2c519c3ebaa57f8f520e8880e9a
-Patch0:		0001-Fix-kolab-errorhandler.h-kolabformat-errorhandler.h.patch
+# Source0-md5:	38da4b0918e8585ab935ae02bc321aa0
 BuildRequires:	QtCore-devel
 BuildRequires:	curl-devel
 BuildRequires:	kde4-kdepimlibs-devel >= 4.8
-BuildRequires:	libkolabxml-devel >= 0.8
+BuildRequires:	libkolabxml-devel >= 1.0
 BuildRequires:	php-devel >= 4:5.0.4
 BuildRequires:	python-devel
 BuildRequires:	qt4-build
 BuildRequires:	rpmbuild(macros) >= 1.600
 BuildRequires:	swig
 BuildRequires:	swig-php
+BuildRequires:	swig-python
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -31,7 +31,7 @@ The libkolab library is an advanced library to handle Kolab objects.
 Summary:	Kolab library development headers
 Group:		Development/Languages/PHP
 Requires:	%{name} = %{version}-%{release}
-Requires:	libkolabxml-devel >= 0.8
+Requires:	libkolabxml-devel >= 1.0
 Requires:	php-devel
 Requires:	pkgconfig
 Requires:	python-devel
@@ -58,7 +58,6 @@ Python bindings for libkolab.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 rm -rf build
@@ -66,6 +65,7 @@ install -d build
 cd build
 %cmake \
 	-Wno-fatal-errors -Wno-errors \
+	-DPHP_EXECUTABLE=%{_bindir}/php \
 	-DINCLUDE_INSTALL_DIR=%{_includedir} \
 	-DPHP_BINDINGS=ON \
 	-DPHP_INSTALL_DIR=%{php_extensiondir} \
