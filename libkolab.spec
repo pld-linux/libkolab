@@ -5,7 +5,7 @@
 Summary:	Kolab Object Handling Library
 Name:		libkolab
 Version:	0.5.0
-Release:	1
+Release:	2
 License:	LGPL v3+
 Group:		Libraries
 URL:		http://git.kolab.org/libkolab
@@ -15,7 +15,7 @@ BuildRequires:	QtCore-devel
 BuildRequires:	curl-devel
 BuildRequires:	kde4-kdepimlibs-devel >= 4.8
 BuildRequires:	libkolabxml-devel >= 1.0
-BuildRequires:	php-devel >= 4:5.0.4
+BuildRequires:	%{php_name}-devel
 BuildRequires:	python-devel
 BuildRequires:	qt4-build
 BuildRequires:	rpmbuild(macros) >= 1.600
@@ -32,20 +32,20 @@ Summary:	Kolab library development headers
 Group:		Development/Languages/PHP
 Requires:	%{name} = %{version}-%{release}
 Requires:	libkolabxml-devel >= 1.0
-Requires:	php-devel
+Requires:	%{php_name}-devel
 Requires:	pkgconfig
 Requires:	python-devel
 
 %description devel
 Development headers for the Kolab object libraries.
 
-%package -n php-kolab
+%package -n %{php_name}-kolab
 Summary:	PHP Bindings for libkolab
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 %{?requires_php_extension}
 
-%description -n php-kolab
+%description -n %{php_name}-kolab
 PHP Bindings for libkolab.
 
 %package -n python-kolab
@@ -71,6 +71,7 @@ cd build
 	-DPHP_INSTALL_DIR=%{php_extensiondir} \
 	-DPYTHON_BINDINGS=ON \
 	-DPYTHON_INSTALL_DIR=%{py_sitedir} \
+	-DLIB_INSTALL_DIR=%{_libdir} \
 	..
 %{__make}
 cd -
@@ -115,13 +116,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cmake/Libkolab
 %{_includedir}/kolab
 
-%files -n php-kolab
+%files -n %{php_name}-kolab
 %defattr(644,root,root,755)
 %attr(755,root,root) %{php_extensiondir}/kolabcalendaring.so
 %attr(755,root,root) %{php_extensiondir}/kolabicalendar.so
+%attr(755,root,root) %{php_extensiondir}/kolabobject.so
 %attr(755,root,root) %{php_extensiondir}/kolabshared.so
 %{php_data_dir}/kolabcalendaring.php
 %{php_data_dir}/kolabicalendar.php
+%{php_data_dir}/kolabobject.php
 %{php_data_dir}/kolabshared.php
 
 %files -n python-kolab
@@ -131,5 +134,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/kolab/calendaring.py[co]
 %attr(755,root,root) %{py_sitedir}/kolab/_icalendar.so
 %{py_sitedir}/kolab/icalendar.py[co]
+%attr(755,root,root) %{py_sitedir}/kolab/_kolabobject.so
+%{py_sitedir}/kolab/kolabobject.py[co]
 %attr(755,root,root) %{py_sitedir}/kolab/_shared.so
 %{py_sitedir}/kolab/shared.py[co]
