@@ -7,12 +7,12 @@
 %define		php_name	php55
 Summary:	Kolab Object Handling Library
 Name:		libkolab
-Version:	0.5.0
-Release:	2
+Version:	0.5.2
+Release:	1
 License:	LGPL v3+
 Group:		Libraries
 Source0:	http://mirror.kolabsys.com/pub/releases/%{name}-%{version}.tar.gz
-# Source0-md5:	38da4b0918e8585ab935ae02bc321aa0
+# Source0-md5:	f33fcdc6852b9d045cb2be98ef3907ed
 URL:		http://git.kolab.org/libkolab
 BuildRequires:	QtCore-devel
 BuildRequires:	curl-devel
