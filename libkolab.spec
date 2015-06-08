@@ -7,23 +7,27 @@
 %define		php_name	php55
 Summary:	Kolab Object Handling Library
 Name:		libkolab
-Version:	0.5.2
-Release:	3
+Version:	0.6.0
+Release:	1
 License:	LGPL v3+
 Group:		Libraries
 Source0:	http://mirror.kolabsys.com/pub/releases/%{name}-%{version}.tar.gz
-# Source0-md5:	f33fcdc6852b9d045cb2be98ef3907ed
+# Source0-md5:	3c4fc1fec2dfcc0841f29de8f6ff0cd3
+Patch0:		0002-Make-libkolab-compile-with-upstream-kdepimlibs.patch
 URL:		http://git.kolab.org/libkolab
 BuildRequires:	QtCore-devel
 BuildRequires:	curl-devel
 BuildRequires:	kde4-kdepimlibs-devel >= 4.8
-BuildRequires:	libkolabxml-devel >= 1.0
+BuildRequires:	libkolabxml-devel >= 1.1
 BuildRequires:	qt4-build
 BuildRequires:	rpmbuild(macros) >= 1.600
 BuildRequires:	swig
 %if %{with php}
 BuildRequires:	%{php_name}-devel
 BuildRequires:	%{php_name}-cli
+%if %{with tests}
+BuildRequires:	%{php_name}-pcre
+%endif
 BuildRequires:	%{php_name}-program
 BuildRequires:	swig-php
 %endif
@@ -64,6 +68,7 @@ Python bindings for libkolab.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 install -d build
