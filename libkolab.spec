@@ -8,7 +8,7 @@
 Summary:	Kolab Object Handling Library
 Name:		libkolab
 Version:	0.6.0
-Release:	6
+Release:	7
 License:	LGPL v3+
 Group:		Libraries
 Source0:	http://mirror.kolabsys.com/pub/releases/%{name}-%{version}.tar.gz
