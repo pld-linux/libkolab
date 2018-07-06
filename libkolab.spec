@@ -4,11 +4,11 @@
 %bcond_without	php		# PHP bindings
 %bcond_without	python		# Python bindings
 
-%define		php_name	php55
+%define		php_name	php56
 Summary:	Kolab Object Handling Library
 Name:		libkolab
 Version:	0.6.0
-Release:	8
+Release:	9
 License:	LGPL v3+
 Group:		Libraries
 Source0:	http://mirror.kolabsys.com/pub/releases/%{name}-%{version}.tar.gz
